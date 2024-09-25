@@ -51,22 +51,40 @@ By the way, your program should finish with a "QUIT" command.
 //pointers with star point to the value
 //Without star points to spot in memory
 
-void Add(vector<Student*> &);
-void Print(vector<Student*> &);
-void Delete(vector<Student*> &);
-
 
 struct Student {
   char firstName[10];
   char lastName[10];
   int id;
   float gpa;
-}; 
+};
+
+void Add(vector<Student*> &);
+void Print(vector<Student*> &);
+void Delete(vector<Student*> &);
+
 
 int main() {
   cout << "test" << endl;
   vector<Student*> stuVec; //vector of student pointers 
-  char usrChoice[7];
+
+  //Test student
+  Student* bob = new Student; //to make a student point you have to make a new one in the heap? So bob is a pointer to a student object
+  bob->firstName[0] = 'b'; //now use -> operator to get the structure member with a pointer
+ bob->firstName[1] = 'o';
+ bob->firstName[2] = 'b';
+ bob->firstName[3] = '\0';
+ bob->lastName[0] = 'o';
+ bob->lastName[1] = 'n';
+ bob->lastName[2] = 'e';
+ bob->lastName[3] = '\0';
+ bob->id = 1234;
+ bob->gpa = 4.00;
+
+ stuVec.push_back(bob);
+ 
+ //Print(stuVec);
+   char usrChoice[7];
   cout << "Create, Print out, or Delete a student" << endl;
   cin.get(usrChoice, 7);
   cin.get();
@@ -83,7 +101,7 @@ int main() {
     Delete();
   } else {
     cout << "invalid input" << endl;
-  }
+    }
   
   
   
@@ -94,10 +112,32 @@ void Add(vector<Student*> &stuVec) {
   
 }
 
-void Print(vector<Student*> &stuVec) { //pass in the the vector of student pointers (list of pointers to students) 
-  for (vector<Student*>::iterator it = 
+//Prints out all of the currently stored student data.
+void Print(vector<Student*> &stuVec) { //pass in the the vector of student pointers (list of pointers to students)
+  //The iterator 'it' is a pointer to Student*, and Student* points to the Student objects 
+  for (vector<Student*>::iterator it = stuVec.begin(); it != stuVec.end(); it++) {
+    //print out the information for a student.
+    cout.setf(ios::showpoint); //show zeros in the decimal places
+    cout.precision(3); //to 2 decimal places
+    cout << (*it)->firstName << " " << (*it)->lastName << ", " << (*it)->id << ", " << (*it)->gpa << endl;
+  }
 }
 
 void Delete(vector<Student*> &stuVec) {
+  int idIn = 0;
+  bool isId = false;
+  //prompt for which to delete
+  cout << "Enter the id of the student you want to remove" << endl;
+  cin >> idIn;
 
+  while (!isId) {
+  //loop through the student list
+  for (vector<Student*>::iterator it = stuVec.begin(); it != stuVec.end(); it++) {
+    if ((*it)->id == idIn) { //if id match
+      isId = true;
+      it = stuVec.end(); //break out of loop (without a break statement)
+    }
+  }
+  if (!isId) { cout << "Invalid Id, try again" << endl; }
+  }
 }
