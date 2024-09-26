@@ -125,19 +125,26 @@ void Print(vector<Student*> &stuVec) { //pass in the the vector of student point
 
 void Delete(vector<Student*> &stuVec) {
   int idIn = 0;
+  int idIndex = -1;
   bool isId = false;
   //prompt for which to delete
-  cout << "Enter the id of the student you want to remove" << endl;
-  cin >> idIn;
 
   while (!isId) {
+  cout << "Enter the id of the student you want to remove" << endl;
+  cin >> idIn;
   //loop through the student list
   for (vector<Student*>::iterator it = stuVec.begin(); it != stuVec.end(); it++) {
     if ((*it)->id == idIn) { //if id match
       isId = true;
+      idIndex = it - stuVec.begin(); //store the index of where that id is (so we can use it outside the loop)
       it = stuVec.end(); //break out of loop (without a break statement)
     }
   }
   if (!isId) { cout << "Invalid Id, try again" << endl; }
   }
+
+  stuVec.erase(idIndex); //remove the element from the vector? (or should I delete the student object instead? or both?)
+  //Maybe have the deleted ones stored in memory to recover them? (if extra tiem?)
+
+
 }
