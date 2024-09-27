@@ -116,11 +116,20 @@ int main() {
 }
 
 void Add(vector<Student*> &stuVec) {
-  cout << "not implimented" << endl;
-  //Student* anon = new Student; 
   
+  cout << "not implimented" << endl;
+  Student* anon = new Student; //create a new student pointer
   cout << "Student first name: " << endl;
-    
+  cin.get(anon->firstName, 10);
+  cin.get();
+  cout << "Student last name: " << endl;
+  cin.get(anon->lastName, 10);
+  cin.get();
+  cout << "Student id: " << endl;
+  cin >> anon->id;
+  cout << "Student gpa: " << endl;
+  cin >> anon->gpa;
+  stuVec.push_back(anon); //add it to the vector
 }
 
 //Prints out all of the currently stored student data.
@@ -148,7 +157,8 @@ void Delete(vector<Student*> &stuVec) {
     if ((*it)->id == idIn) { //if id match
       isId = true;
       idIndex = it - stuVec.begin(); //store the index of where that id is (so we can use it outside the loop)
-      it = stuVec.end(); //break out of loop (without a break statement)
+      //it = stuVec.end(); //break out of loop (without a break statement)
+      break;
     }
   }
   if (!isId) { cout << "Invalid Id, try again" << endl; }
