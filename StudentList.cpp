@@ -83,33 +83,44 @@ int main() {
 
  stuVec.push_back(bob);
  
- //Print(stuVec);
-   char usrChoice[7];
-  cout << "Create, Print out, or Delete a student" << endl;
-  cin.get(usrChoice, 7);
-  cin.get();
+ Print(stuVec);
 
-  
-  if (usrChoice == "create") {
+  bool validIn = false;
+  while (!validIn) {
+
+ char usrChoice;
+  cout << "Create (c), Print out (p), or Delete (d) a student" << endl;
+  cin >> usrChoice;
+  //cin.get(usrChoice, 7);
+  //cin.get();
+
+  if (usrChoice == 'c') {
     cout << "creates" << endl;
+    validIn = true;
     Add(stuVec); 
-  } else if (usrChoice == "print") {
+  } else if (usrChoice == 'p') {
     cout << "pritns" << endl;
-    Print();
-  } else if (usrChoice == "delete") {
+    Print(stuVec);
+    validIn = true;
+  } else if (usrChoice == 'd') {
     cout << "deltes" << endl;
-    Delete();
+    Delete(stuVec);
+    validIn = true;
   } else {
     cout << "invalid input" << endl;
     }
-  
+  } 
   
   
   return 0;
 }
 
 void Add(vector<Student*> &stuVec) {
+  cout << "not implimented" << endl;
+  //Student* anon = new Student; 
   
+  cout << "Student first name: " << endl;
+    
 }
 
 //Prints out all of the currently stored student data.
@@ -143,8 +154,11 @@ void Delete(vector<Student*> &stuVec) {
   if (!isId) { cout << "Invalid Id, try again" << endl; }
   }
 
-  stuVec.erase(idIndex); //remove the element from the vector? (or should I delete the student object instead? or both?)
-  //Maybe have the deleted ones stored in memory to recover them? (if extra tiem?)
-
-
+  cout << "Are you sure you want to delete that student? (y/n)" << endl;
+  char choice;
+  cin >> choice;
+  if (choice == 'y') {
+  delete(stuVec.at(idIndex));
+  stuVec.erase(stuVec.begin() + idIndex);
+  } 
 }
