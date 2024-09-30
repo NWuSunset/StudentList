@@ -62,6 +62,7 @@ struct Student {
 void Add(vector<Student*> &);
 void Print(vector<Student*> &);
 void Delete(vector<Student*> &);
+void Quit();
 
 
 int main() {
@@ -170,5 +171,9 @@ void Delete(vector<Student*> &stuVec) {
   if (choice == 'y') {
   delete(stuVec.at(idIndex));
   stuVec.erase(stuVec.begin() + idIndex);
+  }
+
+  void Quit() {
+    //quits the program.
   } 
 }
